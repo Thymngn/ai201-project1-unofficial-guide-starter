@@ -13,7 +13,7 @@ def generate_response(query, retrieved_chunks):
 
     `retrieved_chunks` is the list returned by retrieve(). Each item is a dict:
       - "text"     : the chunk text
-      - "game"     : the game name
+      - "category" : the catogory name
       - "distance" : similarity score (you can use this to filter weak matches)
 
     Before writing code, talk through these with your group:
@@ -21,36 +21,36 @@ def generate_response(query, retrieved_chunks):
       - What instructions will stop the model from answering beyond what the
         rules say? (Grounding is the whole point — a confident wrong answer
         is worse than an honest "I don't know.")
-      - How will you surface which game each answer comes from?
+      - How will you surface which category each answer comes from?
 
     Your response should:
       1. Answer using only the retrieved context — not the model's general knowledge
-      2. Make clear which game the answer comes from
-      3. Say so clearly when the answer isn't in the loaded rules
+      2. Make clear which category the answer comes from
+      3. Say so clearly when the answer isn't in the loaded documents
 
     Return the response as a plain string.
     """
     if not retrieved_chunks:
         return (
-            "I couldn't find anything relevant in the loaded rule books. "
+            "I couldn't find anything relevant in the loaded documents. "
             "Try rephrasing your question — or check that your ingestion pipeline is working."
         )
 
     relevant_chunks = [c for c in retrieved_chunks if c["distance"] <= DISTANCE_THRESHOLD]
 
     if not relevant_chunks:
-        return "I couldn't find a confident answer to that question in the loaded rule books."
+        return "I couldn't find a confident answer to that question in the loaded documents."
 
     context = "\n\n---\n\n".join(
-        f"[{chunk['game']}]\n{chunk['text']}" for chunk in relevant_chunks
+        f"[{chunk['category']}]\n{chunk['text']}" for chunk in relevant_chunks
     )
 
     system_prompt = (
-        "You are a board game rules assistant. "
+        "You are a Florida Atlantic Univerisity informant assistant. "
         "Answer the user's question using ONLY the rule excerpts provided. "
-        "Do not use any outside knowledge about board games. "
-        "Always identify which game your answer comes from using the label in the excerpt "
-        "(e.g. 'According to the Catan rules, ...'). "
+        "Do not use any outside knowledge about documents. "
+        "Always identify which category your answer comes from using the label in the excerpt "
+        "(e.g. 'According to the academics document, ...'). "
         "If the answer cannot be found in the excerpts, say so clearly."
     )
 

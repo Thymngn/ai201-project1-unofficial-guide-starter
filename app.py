@@ -58,16 +58,16 @@ def chat(message, history):
 
 with gr.Blocks(
     theme=gr.themes.Soft(primary_hue="indigo"),
-    title="RulesBot",
+    title="OWL_SEARCH",
 ) as demo:
 
     gr.HTML("""
         <div style="text-align:center; padding:1.25rem 0 0.5rem;">
             <h1 style="font-size:2rem; font-weight:700; color:#312e81; margin:0;">
-                🎲 RulesBot
+                🦉 Owl Search
             </h1>
             <p style="color:#6b7280; font-size:1rem; margin:0.4rem 0 0;">
-                Ask anything about your board games — answers straight from the rulebook.
+                Ask anything about the Florida Atlantic University campus and service — answers straight from the official website.
             </p>
         </div>
     """)
@@ -115,14 +115,17 @@ with gr.Blocks(
                     </p>
                     <ul style="font-size:0.85rem; color:#5b21b6; list-style:none;
                                 padding:0; margin:0; line-height:1.8;">
-                        <li>🏔️ Catan</li>
-                        <li>🔍 Clue</li>
-                        <li>🎯 Codenames</li>
-                        <li>🏦 Monopoly</li>
-                        <li>🦠 Pandemic</li>
-                        <li>🌍 Risk</li>
-                        <li>🚂 Ticket to Ride</li>
-                        <li>🃏 Uno</li>
+                        <li>🎓 Academics</li>
+                        <li>🔍 Admissions General</li>
+                        <li>🎯 Campus Services</li>
+                        <li>🏦 Club Organization</li>
+                        <li>🏫 College</li>
+                        <li>💻 CS Department</li>
+                        <li>🏢 Dorm</li>
+                        <li>💵 Financial Aid</li>
+                        <li>🍔 Food</li>
+                        <li>🚍 Transportation </li>
+                        
                     </ul>
                     <hr style="border:none; border-top:1px solid #ddd6fe; margin:0.75rem 0;">
                     <p style="font-size:0.75rem; color:#7c3aed; margin:0; line-height:1.5;">

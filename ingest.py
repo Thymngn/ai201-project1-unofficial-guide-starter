@@ -10,9 +10,9 @@ def load_documents():
             filepath = os.path.join(DOCS_PATH, filename)
             with open(filepath, "r", encoding="utf-8") as f:
                 text = f.read()
-            game_name = filename.replace(".txt", "").replace("_", " ").title()
+            category = filename.replace(".txt", "").replace("_", " ").title()
             documents.append({
-                "game": game_name,
+                "game": category,
                 "filename": filename,
                 "text": text,
             })
@@ -20,7 +20,7 @@ def load_documents():
     return documents
 
 
-def chunk_document(text, game_name):
+def chunk_document(text, category):
     """
     Split a rule document into chunks ready for embedding.
 
@@ -39,7 +39,7 @@ def chunk_document(text, game_name):
 
     Returns a list of dicts, each with:
       - "text"     : the chunk text (str)
-      - "game"     : the game name, e.g. "Catan" (str)
+      - "category"     : the game name, e.g. "academic" (str)
       - "chunk_id" : a unique identifier, e.g. "catan_0", "catan_1" (str)
     """
     chunk_size = 300
@@ -47,7 +47,7 @@ def chunk_document(text, game_name):
     min_length = 50
 
     chunks = []
-    prefix = game_name.lower().replace(" ", "_")
+    prefix = category.lower().replace(" ", "_")
     counter = 0
 
     start = 0
@@ -58,7 +58,7 @@ def chunk_document(text, game_name):
         if len(chunk_text) >= min_length:
             chunks.append({
                 "text": chunk_text,
-                "game": game_name,
+                "category": category,
                 "chunk_id": f"{prefix}_{counter}",
             })
             counter += 1
