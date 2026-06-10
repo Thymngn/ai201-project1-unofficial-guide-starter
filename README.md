@@ -125,7 +125,6 @@ The five questions from [`planning.md`](./planning.md#evaluation-plan), run
 end-to-end through the implemented system (chunk size 600, top-k 5, threshold
 0.65).
 
-<!-- DRAFT accuracy/quality judgments — confirm these against your own reading. -->
 
 | # | Question | Expected answer | System response (summarized) | Retrieval quality | Response accuracy |
 |---|----------|-----------------|------------------------------|-------------------|-------------------|
@@ -195,7 +194,6 @@ spec was the starting hypothesis and the test results corrected it.
 
 ## AI Usage
 
-<!-- DRAFT — these must describe YOUR actual AI usage. Replace with real instances. -->
 
 **Instance 1 — Tuning retrieval/generation parameters**
 
@@ -206,11 +204,16 @@ spec was the starting hypothesis and the test results corrected it.
   distances, and showed that the relevant Owl Card chunk (distance ~0.64) was
   being filtered out by my 0.5 threshold. It recommended chunk size 600, overlap
   100, top-k 5, and threshold 0.65, then re-ingested and re-tested.
-- *What I changed or overrode:* [TODO — fill in what you accepted, rejected, or
-  adjusted. e.g., did you keep all four values, or tune any yourself afterward?]
+- *What I changed or overrode:* I accept the changes in the chunk size and modify top-k and threshold to make the performance better than the inital setting
 
-**Instance 2 — [TODO: your second real instance]**
+**Instance 2 — App.py diagnos**
 
-- *What I gave the AI:*
-- *What it produced:*
-- *What I changed or overrode:*
+- *What I gave the AI: Fixing gradio app setup by providing errors within the terminal 
+- *What it produced:* It diagnosed the Gradio 6.0 breaking changes (type=, theme moved to launch()) and edited app.py.
+- *What I changed or overrode:* I accepted the modification and it make the server runs again that compatible with the current code.
+
+**Instance 2 — documents assemblance**
+
+- *What I gave the AI: topics and website to search about Florida Atlantic University with sources. 
+- *What it produced:* It created txt documents and included the source within each txt
+- *What I changed or overrode:* I accepted the drafted txt and modify some information with my knowledge from attending the university.
