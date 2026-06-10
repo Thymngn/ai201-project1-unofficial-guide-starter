@@ -1,0 +1,85 @@
+FLORIDA ATLANTIC UNIVERSITY — COMPUTER SCIENCE DEPARTMENT
+===========================================================
+Source: https://www.fau.edu/engineering/eecs/
+        https://www.fau.edu/engineering/eecs/undergraduate/computer-science/
+        https://www.fau.edu/engineering/eecs/graduate/ms/computer-science/
+        https://www.fau.edu/engineering/eecs/graduate/ms/computer-science/courses/
+
+DEPARTMENT
+-----------
+Department of Electrical Engineering and Computer Science (EECS)
+College of Engineering and Computer Science
+Department Chair: Hari Kalva, Ph.D.
+
+ACCREDITATION
+--------------
+- All degree programs accredited by SACS (Southern Association of Colleges and Schools)
+- BS programs in Computer Science, Computer Engineering, and Electrical Engineering are
+  accredited by ABET (Accreditation Board for Engineering and Technology)
+
+UNDERGRADUATE PROGRAMS
+------------------------
+1. Bachelor of Science in Computer Science (BSCS)
+   - Intensive study of computers, software, and computational systems
+   - Includes higher-level math and science requirements
+   - Areas: Internet/web programming, mobile development, data mining & machine learning,
+     AI, database systems, software engineering, theory of computing, video game development,
+     human-computer interaction, social networks
+
+2. Bachelor of Arts in Computer Science (BACS)
+   - Focuses on design and development of computer software
+   - General education-level math/science requirements (less intensive than BSCS)
+   - Suitable for students interested in CS concepts with broader interdisciplinary goals
+
+3. BS in Data Science and Analytics (DSA) — NEW
+
+GRADUATE PROGRAMS
+------------------
+1. Master of Science in Computer Science (MSCS)
+   - Thesis and Non-Thesis options (minimum 30 credits each)
+   - Required breadth courses (one from each category):
+       • Theory & Algorithms (COT prefix)
+       • Software & Programming (COP or CEN prefix)
+       • Systems & Applications (CAP, CIS, CNT, or CDA prefix)
+   - Non-thesis: 7 elective courses
+   - Thesis: 6 thesis credits + 5 elective courses
+   - All students complete one semester of CGS 5937 Graduate Seminar (0 credits)
+   - Career outcomes: Software Engineer, Software Architect, Big Data Engineer, Data Analytics
+     Engineer, Database Engineer, Mobile Application Engineer, Cybersecurity Engineer,
+     Senior Application Developer
+
+2. MS in Data Science and Analytics (DSA) — NEW
+
+3. MS in Artificial Intelligence (AI) — NEW
+
+RESEARCH & ELECTIVE AREAS
+---------------------------
+The EECS Department offers a rich selection of elective courses in:
+- Software Engineering
+- Machine Learning & Artificial Intelligence
+- Data Science
+- Advanced Programming Methodologies
+- Database Systems
+- Computer Networks & Wireless Networking
+- Cybersecurity & Cryptography
+- IoT and Smart Systems
+- Bioinformatics
+- Multimedia Systems
+- Mobile Application Development
+- Healthcare Informatics
+
+NOTABLE RECENT NEWS
+--------------------
+- FAU EECS received a U.S. Air Force T-1A Jayhawk Mixed Reality (MR) and 3D Motion flight
+  simulator (valued ~$4.5 million) through an in-kind grant
+- FAU awarded $4M in federal funding (FY 2026) for programs in defense readiness,
+  semiconductor workforce development, and neurological disease research
+- A FAU engineer earned a U.S. Patent for a "Human-AI Manufacturing System" (Adaptive Cyber
+  Manufacturing Through Online Human-AI Partnerships)
+
+CONTACT & ADVISING
+--------------------
+Center for Advising and Student Engagement (CASE)
+Phone: 561-297-2790
+Email: engineering-services@fau.edu
+Website: https://www.fau.edu/engineering/eecs/
