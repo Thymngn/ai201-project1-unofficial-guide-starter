@@ -3,7 +3,7 @@ from config import GROQ_API_KEY, LLM_MODEL
 
 _client = Groq(api_key=GROQ_API_KEY)
 
-DISTANCE_THRESHOLD = 0.5
+DISTANCE_THRESHOLD = 0.65
 
 def generate_response(query, retrieved_chunks):
     """

@@ -32,7 +32,7 @@ def embed_and_store(chunks):
       - documents : raw text strings — ChromaDB's embedding function converts
                     these to vectors automatically using sentence-transformers
       - metadatas : one dict per chunk, stored alongside the vector so that
-                    retrieve() can surface which game a result came from
+                    retrieve() can surface which category a result came from
       - ids       : the unique chunk_id strings used to identify each entry
 
     You don't generate embeddings manually here — you hand over the text
@@ -40,7 +40,7 @@ def embed_and_store(chunks):
     """
     _collection.add(
         documents=[c["text"] for c in chunks],
-        metadatas=[{"game": c["game"]} for c in chunks],
+        metadatas=[{"category": c["category"]} for c in chunks],
         ids=[c["chunk_id"] for c in chunks],
     )
     print(f"Stored {_collection.count()} total chunks in the vector database.")
@@ -59,7 +59,7 @@ def retrieve(query, n_results=N_RESULTS):
 
     Return a list of dicts, each with:
       - "text"     : the chunk text
-      - "game"     : the game name (pull this from metadatas)
+      - "category"     : the category name (pull this from metadatas)
       - "distance" : the similarity score (lower = more similar for cosine)
 
     Note: _collection.query() returns nested lists (one per query). You only
@@ -84,11 +84,11 @@ def retrieve(query, n_results=N_RESULTS):
     ):
         chunks.append({
             "text": text,
-            "game": meta["game"],
+            "category": meta["category"],
             "distance": distance,
         })
 
     for chunk in chunks:
-            print(f"[{chunk['game']}] (dist: {chunk['distance']:.3f}) {chunk['text'][:80]}...")
+            print(f"[{chunk['category']}] (dist: {chunk['distance']:.3f}) {chunk['text'][:80]}...")
 
     return chunks

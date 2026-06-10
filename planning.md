@@ -52,7 +52,7 @@ I choose general information about Florida Atlantic University as my domain. Thi
 | 30 |Campus Life Overview (Duplicate Source)|Student life information including housing, dining, and campus engagement|https://www.fau.edu/about/campus-life
 | 31 |Residential Meal Plans|Dining plans for students living on campus and meal plan options|https://dineoncampus.com/fau/residential-meal-plans
 | 32 |Meal Plan Overview |Explanation of FAU meal plan options, pricing, and structure|https://www.fau.edu/business-services/meal-plans/meal-plans-overview/
-| 32 |Meal Plan FAQ |Frequently asked questions about meal plans and dining services|https://www.fau.edu/business-services/meal-plans/faq/
+| 33 |Meal Plan FAQ |Frequently asked questions about meal plans and dining services|https://www.fau.edu/business-services/meal-plans/faq/
 | 34 |Parking Services|Campus parking rules, permits, enforcement, and regulations |https://www.fau.edu/parking/
 | 35 |Transportation Resources|Student transportation options including shuttles and commuting guidance|https://www.fau.edu/newstudent/family/resources/transportation/
 | 36 |Parking Operations|Parking enforcement, permits, and operational services |https://www.fau.edu/parking/services/
@@ -70,23 +70,31 @@ I choose general information about Florida Atlantic University as my domain. Thi
      A review-heavy corpus warrants different chunking than a long FAQ. -->
 
 **Chunk size:**
-300 character. 
+600 characters.
 **Overlap:**
-50 words
+100 characters
+
+> Updated during implementation. The original plan used 300/50, but testing showed
+> that split labeled blocks apart — for example, the Owl Card benefit list was cut
+> in half, so retrieval returned only a partial answer. Raising the window to 600/100
+> keeps a complete labeled block (a dorm entry, a meal plan, the Owl Card list) in a
+> single chunk while staying targeted.
 
 **Reasoning:**
 The documents are organized mostly in list format, where individual facts (e.g., a meal plan price,
-a dorm name, a club name) fit within 1–3 sentences.
+a dorm name, a club name) appear as short labeled blocks of a few lines.
 
-A 300-character chunk captures one to two
-distinct facts without pulling in unrelated details from the next list item.
-A larger chunk (e.g., 1,000 characters) would blur multiple distinct facts together, making retrieval less precise — for example, mixing dorm amenity details with pricing when a user only asks about one.
+A 600-character chunk captures one complete labeled block without pulling in unrelated
+blocks from elsewhere in the file.
+A much larger chunk (e.g., 1,500 characters) would blur multiple distinct blocks together, making retrieval less precise — for example, mixing dorm amenity details with pricing when a user only asks about one.
 
-The 50-character overlap (roughly 8–12 words) ensures that facts which span a chunk boundary —
-such as a building name on one line and its phone number on the next — aren't split completely.
+The 100-character overlap (roughly one to two short lines) ensures that facts which span a chunk boundary —
+such as a building name on one line and its details on the next — aren't split completely.
 
-This overlap is intentionally small because the documents are short, factual, and list-like;
+This overlap is intentionally modest because the documents are short, factual, and list-like;
 large overlaps would create near-duplicate chunks that waste retrieval slots.
+
+**Final chunk count:** 79 chunks across all 10 documents.
 ---
 
 ## Retrieval Approach
@@ -101,8 +109,14 @@ large overlaps would create near-duplicate chunks that waste retrieval slots.
 "all-MiniLM-L6-v2"
 
 **Top-k:**
-3
-With 300-character chunks, three chunks give the generator roughly 900 characters (~180–240 tokens) of context — enough to answer a focused factual question without exceeding context limits or introducing irrelevant noise.
+5
+
+> Updated during implementation from 3 to 5. With only 3 chunks, relevant-but-not-top
+> matches (and chunks holding a split portion of a list) were left out, so answers came
+> back incomplete. Five chunks of 600 characters give the generator roughly 3,000
+> characters of context — enough to assemble a complete answer for list-style questions
+> without exceeding context limits. Weak chunks are still filtered by the distance
+> threshold in generate_response().
 
 **Production tradeoff reflection:**
 
@@ -166,8 +180,8 @@ metadata-filtered retrieval (e.g., filter by source file).
  │  .txt files)     │    │  character-based │    │  all-MiniLM-L6-v2   │
  │                  │    │  splitter)       │    │                      │
  │ Input:           │    │                  │    │ Vector Store:        │
- │  10 .txt files   │    │ Chunk size: 300  │    │  ChromaDB   │
- │  (academics,     │    │ Overlap:    50   │    │  (in-memory or       │
+ │  10 .txt files   │    │ Chunk size: 600  │    │  ChromaDB   │
+ │  (academics,     │    │ Overlap:   100   │    │  (in-memory or       │
  │   admissions,    │    │ chars each       │    │   persisted)         │
  │   campus_svcs,   │    │                  │    │                      │
  │   clubs, college,│    │ Output:          │    │ Output:              │
@@ -180,18 +194,18 @@ metadata-filtered retrieval (e.g., filter by source file).
  ┌──────────────────┐    ┌──────────────────────────────────────────────┐
  │  5. GENERATION   │    │  4. RETRIEVAL                                │
  │                  │◀───│                                             │
- │ Tool: Grok       │    │ Tool: sentence-transformers + vector store   │
+ │ Tool: Groq       │    │ Tool: sentence-transformers + vector store   │
  │                  │    |                                              │
  │                  │    │ - Embed user query with all-MiniLM-L6-v2     │
  │ Input:           │    │ - Cosine similarity search                   │
- │  user query +    │    │ - Return top-k = 3 most similar chunks       │
- │  top-3 chunks    │    │                                              │
- │  as context      │    │ Output: 3 text chunks + source metadata      │
+ │  user query +    │    │ - Return top-k = 5 most similar chunks       │
+ │  top-5 chunks    │    │                                              │
+ │  as context      │    │ Output: 5 text chunks + category metadata    │
  │                  │    └──────────────────────────────────────────────┘
  │ Output:          │
  │  grounded answer │    ┌──────────────────┐
- │  citing source   │    │  USER INTERFACE  │
- │  file names      │◀──▶│                 │
+ │  citing the      │    │  USER INTERFACE  │
+ │  category        │◀──▶│                 │
  └──────────────────┘    │ Tool: Gradio     │
                          │ or CLI (input /  │
                          │  output loop)    │
@@ -238,8 +252,8 @@ metadata-filtered retrieval (e.g., filter by source file).
 **Milestone 5 — Generation and interface:**
      - Tool: Claude
      - Input to Claude: This planning.md (Evaluation Plan section) + retrieval output schema from M4
-     - Prompt template: "Using the Anthropic Python SDK, implement generate_answer(query, chunks)
-     that sends the user query and top-3 retrieved chunks as context to groq and returns a grounded answer. Then build a simple Streamlit or CLI interface that accepts user questions, calls retrieve() and generate_answer(), and prints the answer with source citations."
+     - Prompt template: "Using the Groq Python SDK, implement generate_response(query, chunks)
+     that sends the user query and top-5 retrieved chunks as context to Groq (llama-3.3-70b-versatile) and returns a grounded answer. Then build a simple Gradio interface that accepts user questions, calls retrieve() and generate_response(), and shows the answer with its source category."
      - Expected output: generator.py and app.py (or main.py for CLI)
      - Verification: Run all 5 evaluation questions end-to-end and score responses as correct /
      partially correct / incorrect based on expected answers in the Evaluation Plan table.

@@ -57,7 +57,6 @@ def chat(message, history):
 # ---------------------------------------------------------------------------
 
 with gr.Blocks(
-    theme=gr.themes.Soft(primary_hue="indigo"),
     title="OWL_SEARCH",
 ) as demo:
 
@@ -76,10 +75,8 @@ with gr.Blocks(
         with gr.Column(scale=3):
             gr.ChatInterface(
                 fn=chat,
-                type="messages",
                 chatbot=gr.Chatbot(
                     height=440,
-                    type="messages",
                     placeholder=(
                         "<div style='text-align:center; color:#9ca3af; margin-top:3rem;'>"
                         "Ask a rules question to get started — no arguing required 🎯"
@@ -92,15 +89,11 @@ with gr.Blocks(
                     scale=7,
                 ),
                 examples=[
-                    "How do you set up the board in Catan?",
-                    "What happens if you roll a 7 in Catan?",
-                    "How does the Spymaster give clues in Codenames?",
-                    "What happens when a city gets a 4th disease cube in Pandemic?",
-                    "Can two players claim the same route in Ticket to Ride?",
-                    "How do you get out of Jail in Monopoly?",
-                    "How does attacking work in Risk?",
-                    "What is a Wild Draw Four and when can you play it in Uno?",
-                    "How does making a Suggestion work in Clue?",
+                    "What are the top 5 most popular majors at Florida Atlantic University?",
+                    "What meal plan options are available at FAU dining halls?",
+                    "What are the perks and benefits of the Owl Card?",
+                    "Which dorms are available for upperclassmen at FAU?",
+                    "What health services are offered by FAU Health Services?",
                 ],
                 cache_examples=False,
             )
@@ -141,4 +134,4 @@ if __name__ == "__main__":
     print("  RulesBot — starting up")
     print("="*50 + "\n")
     run_ingestion()
-    demo.launch()
+    demo.launch(theme=gr.themes.Soft(primary_hue="indigo"))
