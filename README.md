@@ -208,11 +208,11 @@ spec was the starting hypothesis and the test results corrected it.
 
 **Instance 2 — App.py diagnos**
 
-- *What I gave the AI: Fixing gradio app setup by providing errors within the terminal 
+- *What I gave the AI:* Fixing gradio app setup by providing errors within the terminal 
 - *What it produced:* It diagnosed the Gradio 6.0 breaking changes (type=, theme moved to launch()) and edited app.py.
 - *What I changed or overrode:* I accepted the modification and it make the server runs again that compatible with the current code.
 
-**Instance 2 — documents assemblance**
+**Instance 3 — documents assemblance**
 
 - *What I gave the AI: topics and website to search about Florida Atlantic University with sources. 
 - *What it produced:* It created txt documents and included the source within each txt
